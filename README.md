@@ -7,7 +7,7 @@ The Arabidopsis gene AT2G25450, often referred to as GSL-OH encodes a protein th
 In the 1,001 Population of Arabidopsis thaliana, the GSL-OH gene has a unique pattern of pseudogenization, particularly given its epistatic relationship to other genes necessary for the production of 2-hydroxybut-3-enyl glucosinolate. Theoretically, when these epistatic genes undergo loss of function mutations, production of 2-hydroxybut-3-enyl glucosinolate stops and selection on GSL-OH becomes effectively neutral. However, in the 1,001 population, there exists varying proportions of functioning and non-functioning GSL-OH genes despite their epistatic contexts. This project aims to generate a null expectation for the pseudogenization of GSL-OH under neutral conditions (mimicking a non-functioning 2-hydroxybut-3-enyl glucosinolate biosynthetic pathway).
 
 ## IMPORTANT PROJECT NOTES
-The data here represents a single example/simulation. From my tests, I recommend we run permutations or something because the outcome of the simulation is highly variable (In other words, there is work to be done). I have attached screenshot images from this example simulation below to demonstrate the analyses that I have done (proof of concept stuff). 
+The data here represents a single example/simulation. From my tests, I recommend we run permutations or something because the outcome of the simulation is highly variable (In other words, there is work to be done). I have attached screenshot images from this example simulation below to demonstrate the analyses that I have done (proof of concept stuff). Also, this is a diploid output, so a population of 1,000, but there are 2,000 genes modeled. 
 ---
 ## Gene Sequence Analysis Repository
 
@@ -37,3 +37,11 @@ The notebook includes several key analyses:
 5. **Frequency Analysis**: The notebook also includes code to count the frequency of each unique row in `protein_lengths.csv` (excluding the first column), helping to identify the most common mutations.
 
 ---
+Processsing the original GSL-OH CDS for analysis
+![Processsing the original GSL-OH CDS for analysis](Ancestral_protein_info.png)
+
+Frequency of Mutants Proteins with alternative length from Ancestral Protein
+![Frequency of Mutants Proteins with alternative length from Ancestral Protein](Unique_protein_results.png)
+
+![Visualizing distribution of mutant protein lengths](Mutant_frequency_histograms.png)
+It should be noted that the population size was 1,000, but the SLiM3 output of the population gave me 2N sequences, so the resulting data is doubled.
