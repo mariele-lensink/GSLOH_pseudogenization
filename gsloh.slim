@@ -4,26 +4,33 @@
 initialize() {
         
         initializeSLiMOptions(nucleotideBased=T); // simulation is nucleotide based 
-        defineConstant("L", initializeAncestralNucleotides("/Users/mlensink/AT2G25450.1_fullgenomic.txt"));
+        defineConstant("L", initializeAncestralNucleotides("/Users/mlensink/Documents/GSLOH_evolution/GSLOH_pseudogenization/corrected_AT2G25450.txt"));
+        
         initializeMutationTypeNuc("m1", 0.5, "f", 0);         // neutral
         
-        initializeGenomicElementType("g1", m1, 1.0, mmJukesCantor(1e-7));
+        initializeGenomicElementType("g1", m1, 1.0, mmJukesCantor(2*1e-7));
         initializeGenomicElement(g1, 0,L-1);
         initializeRecombinationRate(0);
 }
  
 // we create a population of 1000 individuals
 1 early() {
-        sim.addSubpop("p1", 10);
+        sim.addSubpop("p1", 1000);
         p1.setSelfingRate(0.98);
 }
 
 
 // after 1000 generations we sample the population and save as a vcf
-10000 late() {
-        p1.setSubpopulationSize(10);
-        //g = p1.sampleIndividuals(1000).genomes;
-        g = p1.sampleIndividuals(10).genomes;
-		  catn("\n\n>" + g.nucleotides()); 
-		  writeFile(filePath=paste('/Users/mlensink/Documents/gsloh_mutants.txt',sep=''),contents= paste("\n\n>" + g.nucleotides()));       
-        }
+100000 late() {
+        g = p1.sampleIndividuals(1000).genomes;
+        muts = sim.mutations;
+		  catn(muts.originTick);
+		  catn(muts.nucleotide); 
+		  catn(muts.position);
+		  writeFile(filePath=paste('/Users/mlensink/Documents/GSLOH_evolution/GSLOH_pseudogenization/gsloh_mutants2.txt',sep=''),contents= paste("\n>mutant\n" + g.nucleotides()));       
+		  //sim.outputFull(filePath="/Users/mlensink/Documents/GSLOH_evolution/GSLOH_pseudogenization/gsloh_mutants2_mutationinfo.txt");        
+}
+
+//nucleotide
+//originTick
+//position 
