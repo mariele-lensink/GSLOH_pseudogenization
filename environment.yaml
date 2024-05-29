@@ -1,0 +1,10 @@
+name: pseudogene_pipeline
+channels:
+  - defaults
+  - bioconda
+  - conda-forge
+dependencies:
+  - python=3.8
+  - slim=3.3
+  - biopython
+  - snakemake
