@@ -4,7 +4,7 @@ channels:
   - bioconda
   - conda-forge
 dependencies:
-  - python=3.8
-  - slim=3.3
+  - python
+  - slim
   - biopython
   - snakemake

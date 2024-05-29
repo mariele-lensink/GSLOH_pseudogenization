@@ -8,3 +8,11 @@
 #SBATCH --time=48:00:00                 # Time limit hrs:min:sec
 #SBATCH --output=gsloh_%j.out       # Standard output
 #SBATCH --error=gsloh_%j.err        # Standard error
+
+#define permutation 
+export NUM_RUNS=1000
+
+#load correct environment
+
+#Run snakemake
+snakemake -j 50
