@@ -16,7 +16,10 @@ rule run_slim:
     input:
         slim_script = 'gsloh.slim'
     output:
-        mutant_files = expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1))
+        mutant_files = expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, num_runs + 1))
+    params:
+        num_runs = NUM_RUNS
+    log: "logs/run_slim.log"
     shell:
         """
         for i in $(seq 1 {NUM_RUNS}); do
@@ -31,6 +34,8 @@ rule analyze_mutants:
         python_script = 'analyze_mutants.py'
     output:
         final_output = f"{output_dir}/final_output.txt"
+    log:
+        "logs/analyze_mutants.log"
     shell:
         """
         python {input.python_script}
