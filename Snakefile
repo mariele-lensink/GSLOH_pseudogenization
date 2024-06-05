@@ -1,7 +1,7 @@
 import os
 
 # Get the number of runs from the environment variable
-NUM_RUNS = int(os.getenv('NUM_RUNS', 1000))
+NUM_RUNS = int(os.getenv('NUM_RUNS', 10))
 
 # Define directories
 mutants_dir = 'mutants'
