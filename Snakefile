@@ -46,4 +46,4 @@ rule analyze_mutants:
 # Define the final rule
 rule all:
     input:
-        mutant_files+ [f"{output_dir}/final_output.txt"]
+        f"{output_dir}/final_output.txt"
