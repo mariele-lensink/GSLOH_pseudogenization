@@ -19,13 +19,15 @@ rule run_slim:
     input:
         slim_script = 'gsloh.slim'
     output:
-        mutant_file = f"{mutants_dir}/gsloh_mutants_{{i}}.txt"
+        mutant_file = expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1))
     params:
-        i = range(1, NUM_RUNS + 1) 
-    log: f"logs/run_slim_{{i}}.log"
+        i = range(1, NUM_RUNS + 1)
+    log: expand(f"logs/run_slim_{{i}}.log", i=range(1, NUM_RUNS + 1))
     shell:
         """
-            slim -d i={wildcards.i} {input.slim_script} > {log} 2>&1
+        for i in {params.i}
+        do
+            slim -d i=$i {input.slim_script} > logs/run_slim_$i.log 2>&1
         done
         """
 
