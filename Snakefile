@@ -28,7 +28,7 @@ rule run_slim:
 # Rule to analyze mutants with the Python script
 rule analyze_mutants:
     input:
-        expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt" for i in range(1, NUM_RUNS + 1)),
+        expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt",i=range(1, NUM_RUNS + 1)),
         python_script = 'analyze_mutants.py'
     output:
         final_output = f"{output_dir}/final_output.txt"
