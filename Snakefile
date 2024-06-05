@@ -16,7 +16,7 @@ rule run_slim:
     input:
         slim_script = 'gsloh.slim'
     output:
-        mutant_file = f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1)
+        mutant_file = f"{mutants_dir}/gsloh_mutants_{{i}}.txt"
     params:
         i = lambda wildcards: wildcards.i
     log: "logs/run_slim_{{i}}.log"
@@ -28,7 +28,7 @@ rule run_slim:
 # Rule to analyze mutants with the Python script
 rule analyze_mutants:
     input:
-        mutant_files = f"{mutants_dir}/gsloh_mutants_{i}.txt" for i in range(1, NUM_RUNS + 1),
+        mutant_files = expand(f"{mutants_dir}/gsloh_mutants_{i}.txt" for i in range(1, NUM_RUNS + 1)),
         python_script = 'analyze_mutants.py'
     output:
         final_output = f"{output_dir}/final_output.txt"
