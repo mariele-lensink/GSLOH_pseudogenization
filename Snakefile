@@ -11,6 +11,13 @@ output_dir = 'output'
 os.makedirs(mutants_dir, exist_ok=True)
 os.makedirs(output_dir, exist_ok=True)
 
+# Define the final rule
+rule all:
+    input:
+        [expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1))],
+        [f"{output_dir}/final_output.txt"]
+
+
 # Rule to run SLiM script
 rule run_slim:
     input:
@@ -39,8 +46,3 @@ rule analyze_mutants:
         python {input.python_script} > {log} 2>&1
         """
 
-# Define the final rule
-rule all:
-    input:
-        expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1)),
-        f"{output_dir}/final_output.txt"
