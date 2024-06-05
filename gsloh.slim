@@ -27,8 +27,8 @@ initialize() {
 		  //catn(muts.originTick);
 		  //catn(muts.nucleotide); 
 		  //catn(muts.position);
-		  writeFile(filePath=paste('/Users/mlensink/Documents/GSLOH_evolution/GSLOH_pseudogenization/mutants/gsloh_mutants_',i,'.txt',sep=''),contents= paste("\n>mutant\n" + g.nucleotides()));       
-		  //sim.outputFull(filePath="/Users/mlensink/Documents/GSLOH_evolution/GSLOH_pseudogenization/gsloh_mutants_mutationinfo.txt");        
+		  writeFile(filePath=paste('mutants/gsloh_mutants_',i,'.txt',sep=''),contents= paste("\n>mutant\n" + g.nucleotides()));       
+		  //sim.outputFull(filePath="extra_output/gsloh_mutants_mutationinfo.txt");        
 }
 
 //nucleotide
