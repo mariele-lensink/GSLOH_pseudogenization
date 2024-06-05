@@ -43,5 +43,5 @@ rule analyze_mutants:
 # Define the final rule
 rule all:
     input:
-        expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1)),
+        expand(f"{mutants_dir}/gsloh_mutants_{{n}}.txt", n=range(1, NUM_RUNS + 1)),
         f"{output_dir}/final_output.txt"
