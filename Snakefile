@@ -16,14 +16,13 @@ rule run_slim:
     input:
         slim_script = 'gsloh.slim'
     output:
-        mutant_files = expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1))
+        mutant_files = f"{mutants_dir}/gsloh_mutants_{{i}}.txt"
     params:
-        num_runs = NUM_RUNS
-    log: "logs/run_slim.log"
+        i = range(1, NUM_RUNS + 1) 
+    log: f"logs/run_slim_{{i}}.log"
     shell:
         """
-        for i in $(seq 1 {params.num_runs}); do
-            slim -d i=$i {input.slim_script} > {log} 2>&1
+            slim -d i={wildcards.i} {input.slim_script} > {log} 2>&1
         done
         """
 
