@@ -18,7 +18,7 @@ rule run_slim:
     output:
         mutant_file = f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1)
     params:
-        i = lmabda wildcards: wildcards.i
+        i = lambda wildcards: wildcards.i
     log: "logs/run_slim_{{i}}.log"
     shell:
         """
