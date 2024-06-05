@@ -4,7 +4,7 @@
 initialize() {
         
         initializeSLiMOptions(nucleotideBased=T); // simulation is nucleotide based 
-        defineConstant("L", initializeAncestralNucleotides("/Users/mlensink/Documents/GSLOH_evolution/GSLOH_pseudogenization/corrected_AT2G25450.txt"));
+        defineConstant("L", initializeAncestralNucleotides("corrected_AT2G25450.txt"));
         
         initializeMutationTypeNuc("m1", 0.5, "f", 0);         // neutral
         

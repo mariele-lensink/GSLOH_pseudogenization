@@ -26,7 +26,7 @@ rule run_slim:
         mutant_file = f"{mutants_dir}/gsloh_mutants_{{i}}.txt"
     params:
         i = lambda wildcards: wildcards.i
-    log: "logs/run_slim_{{i}}.log"
+    log: "logs/run_slim_{i}.log"
     shell:
         """
         slim -d i={wildcards.i} {input.slim_script} > {log} 2>&1
