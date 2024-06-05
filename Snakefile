@@ -11,30 +11,24 @@ output_dir = 'output'
 os.makedirs(mutants_dir, exist_ok=True)
 os.makedirs(output_dir, exist_ok=True)
 
-# Generate a list of expected mutant files
-mutant_files = [f"{mutants_dir}/gsloh_mutants_{i}.txt" for i in range(1, NUM_RUNS + 1)]
-
 # Rule to run SLiM script
 rule run_slim:
     input:
         slim_script = 'gsloh.slim'
     output:
-        mutant_file = expand(f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1))
+        mutant_file = f"{mutants_dir}/gsloh_mutants_{{i}}.txt", i=range(1, NUM_RUNS + 1)
     params:
-        i = range(1, NUM_RUNS + 1)
-    log: expand(f"logs/run_slim_{{i}}.log", i=range(1, NUM_RUNS + 1))
+        i = lmabda wildcards: wildcards.i
+    log: "logs/run_slim_{{i}}.log"
     shell:
         """
-        for i in {params.i}
-        do
-            slim -d i=$i {input.slim_script} > logs/run_slim_$i.log 2>&1
-        done
+        slim -d i={wildcards.i} {input.slim_script} > {log} 2>&1
         """
 
 # Rule to analyze mutants with the Python script
 rule analyze_mutants:
     input:
-        mutant_files = mutant_files,
+        mutant_files = f"{mutants_dir}/gsloh_mutants_{i}.txt" for i in range(1, NUM_RUNS + 1),
         python_script = 'analyze_mutants.py'
     output:
         final_output = f"{output_dir}/final_output.txt"
