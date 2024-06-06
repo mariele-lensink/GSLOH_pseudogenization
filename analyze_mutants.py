@@ -28,6 +28,7 @@ def calculate_relative_length(protein_seq, ancestral_length):
 def process_mutant_file(ancestral_record, ancestral_protein, ancestral_length, mutant_file_path, output_file):
     lof_proteins_count = 0
     total_mutants = 0
+    protein_lengths = set()
 
     with open(output_file, 'a', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
@@ -38,12 +39,14 @@ def process_mutant_file(ancestral_record, ancestral_protein, ancestral_length, m
             mutant_protein = translate_dna(mutant_dna)
             length, percentage_length = calculate_relative_length(mutant_protein, ancestral_length)
             
-            if length < len(ancestral_protein) * 0.9:
+            protein_lengths.add(length)
+
+            if length < len(ancestral_protein) * 0.95:
                 lof_proteins_count += 1
 
         file_number = Path(mutant_file_path).stem.split('_')[-1]
         with lock:
-            csvwriter.writerow([file_number, lof_proteins_count, f"{(lof_proteins_count / total_mutants) * 100:.2f}%"])
+            csvwriter.writerow([file_number, lof_proteins_count, f"{(lof_proteins_count / total_mutants) * 100:.2f}",len(protein_lengths)])
 
 
 if __name__ == "__main__":
@@ -60,7 +63,7 @@ if __name__ == "__main__":
     # Clear or create the output file
     with open(output_file, 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(["File_Number", "Count", "Percentage"])
+        csvwriter.writerow(["File_Number", "Count", "Percentage","Alleles"])
     
     # Process each mutant file
     for mutant_file in Path(mutants_directory).glob("gsloh_mutants_*.txt"):
